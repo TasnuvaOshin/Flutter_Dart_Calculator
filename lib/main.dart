@@ -34,6 +34,14 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
+
+
+     int numberone = 000000;
+     int numbertwo = 0000000;
+     String display="";
+     String res;
+     String opt;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -58,7 +66,7 @@ class _MainPageState extends State<MainPage> {
                 padding: EdgeInsets.all(10.0),
               alignment: Alignment.bottomRight,
               child: Text(
-                   "Our Output",
+                   "$display",
                    style: TextStyle(
                      fontSize: 20.0,
                      fontWeight: FontWeight.bold,
@@ -99,16 +107,16 @@ class _MainPageState extends State<MainPage> {
                         children: <Widget>[
                               setbutton('9'),
                setbutton('0'),
-               setbutton('+'),
-               setbutton('-'),  
+               setbutton("+"),
+               setbutton("-"),  
                              
                           ],
                         ),
                           Row(
                           children: <Widget>[
                                
-                             setbutton('X'),
-               setbutton('/'),
+                             setbutton("x"),
+               setbutton("/"),
                setbutton('='),
                setbutton('AC'),
                
@@ -132,21 +140,89 @@ class _MainPageState extends State<MainPage> {
                child: OutlineButton(
                 padding: EdgeInsets.all(25.0),
                 
-                  onPressed: (){},
-                  child: Text(
-                    "$value",
-                  style: TextStyle(
-
-                    fontSize: 20.0,
-                  ),
-                  ),
+                  onPressed: () => starcal(value),
+                                    child: Text(
+                                      "$value",
+                                    style: TextStyle(
+                  
+                                      fontSize: 20.0,
+                                    ),
+                                    ),
+                                    
+                  
+                                 ),
+                  
+                              
+                            );
+                              }
                   
 
-               ),
 
-            
-          );
-            }
+
+
+
+
+
+                    starcal(String value) {
+                 print('button clicked');
+
+                if(value == "+" || value == "-" || value == "x" || value == "/"){
+           
+                  opt = value;
+                     res = numberone.toString() + opt.toString();
+                }
+                else if (value == "AC"){
+                  res = "";
+                  opt = "";
+                  numberone = 000000;
+         
+                }
+
+               else if(value == "="){
+
+                  if(opt == "+"){
+
+                    res = (numberone + numbertwo).toString();
+                  }else if(opt == "-"){
+
+                     res = (numberone - numbertwo).toString();
+                  }else if (opt == "x"){
+                    res = (numberone*numbertwo).toString();
+                  }
+                  else if (opt == "/"){
+
+                    res =  (numberone/numbertwo).toString();
+                  }
+                }
+                else{
+                    if(numberone == 000000){
+                  
+                      numberone = int.parse(value);
+                          res = numberone.toString();
+
+                          
+                    }else{
+                        
+                      numbertwo = int.parse(value);
+                      res = numberone.toString() + opt.toString() + numbertwo.toString();
+
+                    }
+
+                }
+                       setState(() {
+                         
+                         display = res;
+                         
+
+
+                       });
+
+                 
+
+
+
+
+                    }
 }
 
 
